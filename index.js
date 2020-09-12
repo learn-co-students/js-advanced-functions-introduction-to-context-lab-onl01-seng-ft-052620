@@ -36,9 +36,13 @@ function createTimeOutEvent(record, timeOut) {
 }
 
 function hoursWorkedOnDate(record, date) {
-    let timeIn = record.timeInEvents.find(e => e.date === date)
-    let timeOut = record.timeOutEvents.find(e => e.date === date)
-    return (timeOut.hour - timeIn.hour)/100
+    let timeIn = record.timeInEvents.find(e => e.date === date).hour.toString()
+    let timeOut = record.timeOutEvents.find(e => e.date === date).hour.toString()
+    let timeInHour = parseInt(timeIn.slice(0, -2), 10)
+    let timeInMin = parseInt(timeIn.slice(-2), 10)
+    let timeOutHour = parseInt(timeOut.slice(0, -2), 10)
+    let timeOutMin = parseInt(timeOut.slice(-2), 10)
+    return (timeOutHour - timeInHour) + (timeOutMin - timeInMin)/60
 }
 
 function wagesEarnedOnDate(record, date) {
