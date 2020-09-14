@@ -59,13 +59,11 @@ function allWagesFor(record){
     let dates = record.timeInEvents.map(function(timeIn){
         return timeIn.date
     })
-    let wages = 0
    
-    dates.forEach(date => {
-        wages += wagesEarnedOnDate(record, date)
-    })
+    return dates.reduce(function(memo, date){
+        return memo + wagesEarnedOnDate(record, date)
+    },0)
 
-    return wages
     
 }
 
@@ -76,9 +74,7 @@ function findEmployeeByFirstName(records, firstName){
 }
 
 function calculatePayroll(records){
-    let cost = 0
-    records.forEach(employee =>{
-        cost += allWagesFor(employee)
-    })
-    return cost
+    return records.reduce(function(memo, record){
+        return memo + allWagesFor(record)
+    }, 0)
 }
